@@ -2,6 +2,7 @@ import dash
 from dash import Dash, html, dcc
 import dash_bootstrap_components as dbc
 from database.db_handler import criar_tabela_usuarios
+import flask
 
 criar_tabela_usuarios()
 
@@ -21,3 +22,13 @@ app.layout = html.Div([
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+@app.server.route("/uploads/<filename>")
+def baixar_arquivo(filename):
+    return flask.send_from_directory("uploads", filename)
+
+import flask
+
+@app.server.route("/certificados/<filename>")
+def baixar_certificado(filename):
+    return flask.send_from_directory("certificados", filename)
